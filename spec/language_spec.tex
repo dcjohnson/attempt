@@ -53,9 +53,9 @@
         Each line of code makes up a statement that can contain one or more expressions. Each
         expression is delimited by a semicolon. The end of each line does not require a semicolon.
         \begin{verbatim}
-          // the following expressions are equivalent
+          # the following expressions are equivalent
           let x: i32 = 3; x += 1
-          // or
+          # or
           let x: i32 = 3
           x += 1
         \end{verbatim}
@@ -65,18 +65,24 @@
         : symbol must be used in conjuction with specific language constructs. For example, defining the
         body of a method, if statement, or for loop. They can be nested and can be use in a solitary
         fashion as well. When used in a variable declaration, it is used to specify the type.
+        Each block defines its own lexical scope.
         \begin{verbatim}
           if <expression>:
             <expression>
           else:
             <expression>
 
-          for let x: i32 = 0; x < 20; x += 1: // the for loop contains 3 expressions
+          # the for loop contains 3 expressions
+          for let x: i32 = 0; x < 20; x += 1:
             <expression>
 
           func foo() -> i32:
             <expression>
             return 3
+
+          <expression>
+          : # defines a new block.
+            <expressing>
         \end{verbatim}
 
 \end{document}
