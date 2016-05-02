@@ -49,6 +49,17 @@
         you cannot mix indentation that indents by one space or two spaces. If you choose and indentation of
         one space, you must stick with it or you will suffer. Your program wont compile.
 
+      \subcentersec{Statements}
+        Each line of code makes up a statement that can contain one or more expressions. Each
+        expression is delimited by a semicolon. The end of each line does not require a semicolon.
+        \begin{verbatim}
+          // the following expressions are equivalent
+          let x: i32 = 3; x += 1
+          // or
+          let x: i32 = 3
+          x += 1
+        \end{verbatim}
+
       \subcentersec{Code Blocks}
         The : symbol will be used to state that a new code block will be starting on the next line. The
         : symbol must be used in conjuction with specific language constructs. For example, defining the
@@ -60,7 +71,7 @@
           else:
             <expression>
 
-          for let x: i32 = 0; x < 20; x += 1:
+          for let x: i32 = 0; x < 20; x += 1: // the for loop contains 3 expressions
             <expression>
 
           func foo() -> i32:
@@ -68,14 +79,4 @@
             return 3
         \end{verbatim}
 
-      \subcentersec{Statements}
-        Each line of code makes up a statement that can contain one or more expressions. Each
-        expression is delimited by a semicolon. The end of each line does not require a semicolon.
-        \begin{verbatim}
-          // the following expressions are equivalent
-          let x: i32 = 3; x += 1
-          // or
-          let x: i32 = 3
-          x += 1
-        \end{verbatim}
 \end{document}
