@@ -10,7 +10,72 @@
   \maketitle
 
   \centersec{Introduction}
-    This is another attempt to write a language. It is going to be named Attempt because that is
-    likely all this will turn out to be. In this document will reside the specification for the language.
+    This is another attempt to write a language; this one will compile for the JVM. I decided to compile
+    to the JVM so that a lot of difficult details, such as garbage collection and heap allocation
+    can be abstracted away. I may change the target the environment to LLVM and write my own garbage
+    collector in the future. However, that is just speculation at this point. Lets get things done one
+    at a time. It is going to be named Attempt because that is likely all this will turn out to be.
+    In this document will reside the specification for the language.
 
+  \centersec{Feature Plan}
+    \subcentersec{Current Plan}
+      \begin{itemize}
+        \item{enforce proper whitespace indentation and formatting}
+        \item{all the standard control flow tools; loops, if else blocks, ect}
+        \item{classes with internal member variables and methods; polymorphism via interfaces and data encapsulation}
+        \item{add the basic built in types, strings, arrays, integers, bools, floats, ect}
+        \item{strong type system}
+        \item{all the proper operators for builtin types; +, -, =+, [], ect}
+        \item{integration with Java stdlib}
+        \item{scopes}
+        \item{compile to executable class files}
+        \item{a proper namespace and module system}
+      \end{itemize}
+
+    \subcentersec{And Beyond}
+      \begin{itemize}
+        \item{port to LLVM}
+        \item{write a garbage collector}
+        \item{stdlib}
+        \item{switch to using impractical unicode symbols such as $ \lambda $ or $ \rightarrow $}
+      \end{itemize}
+
+  \centersec{Specification}
+    \subcentersec{Formatting}
+      \subcentersec{Whitespace}
+        The only valid whitespace is the one true whitespace: spaces. Spaces and only spaces will be allowed.
+        This is because spaces are the purest of all whitespaces and they stay firm to their indentation
+        from one editor to the next. All indentation must be in multiples of a given power of two; in other words,
+        you cannot mix indentation that indents by one space or two spaces. If you choose and indentation of
+        one space, you must stick with it or you will suffer. Your program wont compile.
+
+      \subcentersec{Code Blocks}
+        The : symbol will be used to state that a new code block will be starting on the next line. The
+        : symbol must be used in conjuction with specific language constructs. For example, defining the
+        body of a method, if statement, or for loop. They can be nested and can be use in a solitary
+        fashion as well. When used in a variable declaration, it is used to specify the type.
+        \begin{verbatim}
+          if <expression>:
+            <expression>
+          else:
+            <expression>
+
+          for let x: i32 = 0; x < 20; x += 1:
+            <expression>
+
+          func foo() -> i32:
+            <expression>
+            return 3
+        \end{verbatim}
+
+      \subcentersec{Statements}
+        Each line of code makes up a statement that can contain one or more expressions. Each
+        expression is delimited by a semicolon. The end of each line does not require a semicolon.
+        \begin{verbatim}
+          // the following expressions are equivalent
+          let x: i32 = 3; x += 1
+          // or
+          let x: i32 = 3
+          x += 1
+        \end{verbatim}
 \end{document}
