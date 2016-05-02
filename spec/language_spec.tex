@@ -2,6 +2,7 @@
 
 \newcommand{\centersec}[1]{\section*{\hfil #1 \hfil}}
 \newcommand{\subcentersec}[1]{\subsection*{\hfil #1 \hfil}}
+\newcommand{\subsubcentersec}[1]{\subsubsection*{\hfil #1 \hfil}}
 
 \author{Dylan Johnson}
 \title{Attempt}
@@ -41,15 +42,15 @@
       \end{itemize}
 
   \centersec{Specification}
-    \subcentersec{Formatting}
-      \subcentersec{Whitespace}
+    \subcentersec{High Level Formatting}
+      \subsubcentersec{Whitespace}
         The only valid whitespace is the one true whitespace: spaces. Spaces and only spaces will be allowed.
         This is because spaces are the purest of all whitespaces and they stay firm to their indentation
         from one editor to the next. All indentation must be in multiples of a given power of two; in other words,
         you cannot mix indentation that indents by one space or two spaces. If you choose and indentation of
         one space, you must stick with it or you will suffer. Your program wont compile.
 
-      \subcentersec{Statements}
+      \subsubcentersec{Statements}
         Each line of code makes up a statement that can contain one or more expressions. Each
         expression is delimited by a semicolon. The end of each line does not require a semicolon.
         \begin{verbatim}
@@ -60,7 +61,7 @@
           x += 1
         \end{verbatim}
 
-      \subcentersec{Code Blocks}
+      \subsubcentersec{Code Blocks}
         The : symbol will be used to state that a new code block will be starting on the next line. The
         : symbol must be used in conjuction with specific language constructs. For example, defining the
         body of a method, if statement, or for loop. They can be nested and can be use in a solitary
@@ -84,5 +85,70 @@
           : # defines a new block.
             <expressing>
         \end{verbatim}
+
+    \subcentersec{Operators}
+      \begin{itemize}
+        \item{assignment operators}
+        \begin{enumerate}
+          \item{=}
+          \item{+=}
+          \item{-=}
+          \item{*=}
+          \item{/=}
+          \item{\%=}
+          \item{$ \sim= $ }
+          \item{$ >>= $}
+          \item{$ <<= $}
+          \item{\&=}
+          \item{ $ |= $}
+          \item{$ \hat{}= $}
+        \end{enumerate}
+
+        \item{arithmetic operators}
+        \begin{enumerate}
+          \item{+}
+          \item{-}
+          \item{*}
+          \item{/}
+          \item{\%}
+        \end{enumerate}
+
+        \item{array operators}
+        \begin{enumerate}
+          \item{[ ]}
+        \end{enumerate}
+
+        \item{logical operators}
+        \begin{enumerate}
+          \item{\&\&}
+          \item{$ || $}
+          \item{!}
+        \end{enumerate}
+
+        \item{comparison operators}
+        \begin{enumerate}
+          \item{==}
+          \item{!=}
+          \item{$ < $}
+          \item{$ <= $}
+          \item{$ > $}
+          \item{$ >= $}
+        \end{enumerate}
+
+        \item{bitwise operators}
+        \begin{enumerate}
+          \item{$ \sim $}
+          \item{$ >> $}
+          \item{$ << $}
+          \item{\&}
+          \item{ $ | $}
+          \item{$ \hat{} $}
+        \end{enumerate}
+
+        \item{scope resolution}
+        \begin{enumerate}
+          \item{::}
+        \end{enumerate}
+      \end{itemize}
 
 \end{document}
