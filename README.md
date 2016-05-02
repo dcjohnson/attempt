@@ -1,2 +1,2 @@
 # attempt
-An attempt was made
+Another language attempt. This time with Haskell.
