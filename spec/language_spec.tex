@@ -53,7 +53,7 @@
 
       \subsubcentersec{Statements}
         Each line of code makes up a statement that can contain one or more expressions. Each
-        expression is delimited by a semicolon. The end of each line does not require a semicolon.
+        expression is delimited by a semicolon. The end of each line cannot end with a semicolon.
         \begin{verbatim}
           # the following expressions are equivalent
           let x: i32 = 3; x += 1
@@ -134,40 +134,90 @@
       \end{description}
 
     \subcentersec{Keywords}
-    \subsubsection*{interface}
-      This keyword is used to define the beginning of a interface
-      definition.
-      \begin{verbatim}
-        # beginning of a interface
-        interface IBar:
-          func Baz() -> i32
-          func Bar() -> u32
-      \end{verbatim}
-      All methods defined in a interface are public when
-      implemented they cannot be private.
+      \subsubsection*{func}
+        The \textit{func} keyword is used in function definitions.
+        All functions must reside in a class definition.
+        \begin{verbatim}
+          # returns nothing
+          func foo():
+            <expressions>
 
-      \subsubsection*{class}
-        This keyword is used to define the beginning of a class
+          # returns nothing takes a i32 parameter
+          func bar(i: i32):
+            <expressions>
+
+          # takes a f32 parameter and returns a f32
+          func baz(i: 32) -> f32:
+            <expressions>
+            let r: f32 = 0
+            return r
+
+        \end{verbatim}
+
+      \subsubsection*{interface}
+        The \textit{interface} keyword is used to define the beginning of a interface
         definition.
         \begin{verbatim}
-          # beginning of a class
-          class Foo(<interfaces to implement>):
+          # beginning of a interface
+          interface IBar:
+            func Baz(x: i32) -> u32
+            func Bar() -> i32
+        \end{verbatim}
+        All methods defined in a interface are public when
+        implemented they cannot be private.
+
+      \subsubsection*{class}
+        The \textit{class} keyword is used to define the beginning of a class
+        definition.
+        \begin{verbatim}
+          # beginning of a class that implements the IBar interface
+          class Foo(IBar, <interfaces to implement>):
             # private member data definitions
             x: i32
             y: u32
-            z: Bar
             # public member data definitions
-            public y: f32
+            public z: f32
 
+            # the empty constructor
+            func Foo():
+              x = 0
+              y = 0
+              z = 0
+
+            # constructor with parameters
+            func Foo(x: i32):
+              this.x = x
+              y = 0
+              z = 0
+
+            # part of IBar implementation
             # public function
             public func Bar() -> i32:
               <expression>
+              # each method in a class has a reference to the
+              # instantiated object
               return this.x
 
-            func Baz() -> u32:
+            public func Baz(x: i32) -> u32:
+              <expressions>
+              return this.y + x
+
+            func Bin() -> f32:
               <expressions>
               return this.y
         \end{verbatim}
+
+        \subsubsection*{entry point class}
+          In each executable program, there will be one and only one
+          class that has an entry point method. The class can be
+          named anything but the \textit{main} method, that also takes
+          an array of strings as command line arguments and returns nothing,
+          must be unique in the program.
+          \begin{verbatim}
+            class MainClass:
+              func main(args: []string):
+                <expressions>
+          \end{verbatim}
 
     \subcentersec{Primitive Types}
     \subcentersec{Object System}
