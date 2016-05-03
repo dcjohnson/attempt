@@ -129,9 +129,46 @@
         \item [binary xor] {$ \hat{} $}
 
         \item [scope resolution] {::}
+
+        \item [comment] {\#}
       \end{description}
 
     \subcentersec{Keywords}
+    \subsubsection*{interface}
+      This keyword is used to define the beginning of a interface
+      definition.
+      \begin{verbatim}
+        # beginning of a interface
+        interface IBar:
+          func Baz() -> i32
+          func Bar() -> u32
+      \end{verbatim}
+      All methods defined in a interface are public when
+      implemented they cannot be private.
+
+      \subsubsection*{class}
+        This keyword is used to define the beginning of a class
+        definition.
+        \begin{verbatim}
+          # beginning of a class
+          class Foo(<interfaces to implement>):
+            # private member data definitions
+            x: i32
+            y: u32
+            z: Bar
+            # public member data definitions
+            public y: f32
+
+            # public function
+            public func Bar() -> i32:
+              <expression>
+              return this.x
+
+            func Baz() -> u32:
+              <expressions>
+              return this.y
+        \end{verbatim}
+
     \subcentersec{Primitive Types}
     \subcentersec{Object System}
       \subsubcentersec{Encapsulation}
