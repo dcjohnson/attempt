@@ -1,5 +1,8 @@
 \documentclass{article}
 
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
 \newcommand{\centersec}[1]{\section*{\hfil #1 \hfil}}
 \newcommand{\subcentersec}[1]{\subsection*{\hfil #1 \hfil}}
 \newcommand{\subsubcentersec}[1]{\subsubsection*{\hfil #1 \hfil}}
@@ -27,7 +30,6 @@
         \item{add the basic built in types, strings, arrays, integers, bools, floats, ect}
         \item{strong type system}
         \item{all the proper operators for builtin types; +, -, =+, [], ect}
-        \item{integration with Java stdlib}
         \item{scopes}
         \item{compile to executable class files}
         \item{a proper namespace and module system}
@@ -37,6 +39,7 @@
       \begin{itemize}
         \item{generics}
         \item{port to LLVM}
+        \item{integration with Java stdlib}
         \item{write a garbage collector}
         \item{stdlib}
         \item{switch to using impractical unicode symbols such as $ \lambda $ or $ \rightarrow $}
@@ -133,12 +136,31 @@
         \item [comment] {\#}
       \end{description}
 
-    \subcentersec{Keywords}
-      \subsubsection*{namespace}
-        The \textit{namespace} keyword is used to define the beginning of a namespace.
-        It will be explained in more detail in the \textit{Modules and Namespaces}
-        section.
+      \subcentersec{Primitive Types}
+        \begin{description}
+          \item [8 bit signed integer] {i8}
+          \item [16 bit signed integer] {i16}
+          \item [32 bit signed integer] {i32}
+          \item [64 bit signed integer] {i64}
 
+          \item [8 bit unsigned integer] {u8}
+          \item [16 bit unsigned integer] {u16}
+          \item [32 bit unsigned integer] {u32}
+          \item [64 bit unsigned integer] {u64}
+
+          \item [32 bit IEEE 754 floating point] {f32}
+          \item [54 bit IEEE 754 floating point] {f64}
+
+          \item [a single byte] {byte}
+
+          \item [a 18 bit unicode character] {char}
+
+          \item [a true/false boolean] {bool}
+
+          \item [a string of characters. internally handeled as an array of chars] {string}
+        \end{description}
+
+    \subcentersec{Functions}
       \subsubsection*{func}
         The \textit{func} keyword is used in function definitions.
         \begin{verbatim}
@@ -158,6 +180,18 @@
         \end{verbatim}
         Functions do not need to be defined in a \textit{class} definition.
 
+        \subsubsection*{entry point function}
+          In each executable program, there will be one and only one
+          entry point method. This method cannot be defined in a \textit{class}
+          definition and must reside in the root \textit{namespace}. It will have
+          the following signature. The \textit{args} parameter are the command
+          line arguments.
+          \begin{verbatim}
+            func main(args: []string):
+              <expressions>
+          \end{verbatim}
+
+    \subcentersec{Object System}
       \subsubsection*{interface}
         The \textit{interface} keyword is used to define the beginning of a interface
         definition.
@@ -174,8 +208,14 @@
         The \textit{class} keyword is used to define the beginning of a class
         definition.
         \begin{verbatim}
-          # beginning of a class that implements the IBar interface
-          class Foo(IBar, <interfaces to implement>):
+          # beginning of a class that implements the IBar
+          # interface this class is public; this means that
+          # it is exported outside of it's module
+          # if the public keyword was not present in its
+          # declaration, it would only be accessible inside
+          # it's module and modules that are lower in the
+          # heirarchy
+          public class Foo(IBar, <interfaces to implement>):
             # private member data definitions
             x: i32
             y: u32
@@ -206,27 +246,58 @@
               <expressions>
               return this.y + x
 
+            # private function
             func Bin() -> f32:
               <expressions>
               return this.y
         \end{verbatim}
 
-        \subsubsection*{entry point}
-          In each executable program, there will be one and only one
-          entry point method. This method cannot be defined in a \textit{class}
-          definition and must reside in the root \textit{namespace}. It will have
-          the following signature. The \textit{args} parameter are the command
-          line arguments.
-          \begin{verbatim}
-            func main(args: []string):
-              <expressions>
-          \end{verbatim}
 
-    \subcentersec{Primitive Types}
-    \subcentersec{Object System}
-      \subsubcentersec{Encapsulation}
-      \subsubcentersec{Interfaces}
     \subcentersec{Modules and Namespaces}
+      \subsubsection*{namespace}
+        The \textit{namespace} keyword is used to define the beginning of a namespace.
+        Namespaces must be declared in the bottom of a file, ie, they cannot be
+        declared in any class or function.
+        \begin{verbatim}
+          namespace foo:
+            <class definition>
+            <function definition>
+            <variables>
+        \end{verbatim}
+        All varibles that are declared in a namespace are constant. Global mutables
+        are silly anyway.
+        In addition to this, functions and variables can be exported with the
+        \textit{public} keyword. As in \textit{classes}.
 
+      \subsubsection*{modules}
+        Each \textit{module} is composed of a subdirectiory, and subdirectories of
+        the subdirectory, of the root directory. All source files in each
+        directory make up the contents of the file and the normal export rules with
+        public apply. The tree below is an example of a hypothetical directory
+        heirarchy.
+
+        \Tree [.root [.foomodule [.bin binbuzmodule ] foobarmodule ] [.module submodule ]]
+
+        To access the exported contents of each module, you must descend into the
+        module heirarchy and reference the class, function, interface, or constant
+        variable expicitly using the \textit{::} operator. There will be no ``importing.''
+        \begin{verbatim}
+          # foo is in the root module
+          func foo():
+            foomodule::bin::<function>
+
+          # bar is in the bin module
+          func bar():
+            # must be in the bar module
+            <function>
+            binbuzmodule::<const variable>
+        \end{verbatim}
+        A module that is lower in the heirarchy cannot reference a module that is higher
+        than it. For example, no function in the \textit{binbuzmodule} cannot reference
+        anything in the \textit{bin} module.
+
+        If you whine and say silly things like ``but how will we import modules that
+        are not in the project?'' I say unto you, ``grow a pair and use git submodules.''
+        
   \centersec{Features Implemented}
 \end{document}
