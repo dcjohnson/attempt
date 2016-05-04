@@ -134,9 +134,13 @@
       \end{description}
 
     \subcentersec{Keywords}
+      \subsubsection*{namespace}
+        The \textit{namespace} keyword is used to define the beginning of a namespace.
+        It will be explained in more detail in the \textit{Modules and Namespaces}
+        section.
+
       \subsubsection*{func}
         The \textit{func} keyword is used in function definitions.
-        All functions must reside in a class definition.
         \begin{verbatim}
           # returns nothing
           func foo():
@@ -151,8 +155,8 @@
             <expressions>
             let r: f32 = 0
             return r
-
         \end{verbatim}
+        Functions do not need to be defined in a \textit{class} definition.
 
       \subsubsection*{interface}
         The \textit{interface} keyword is used to define the beginning of a interface
@@ -207,23 +211,22 @@
               return this.y
         \end{verbatim}
 
-        \subsubsection*{entry point class}
+        \subsubsection*{entry point}
           In each executable program, there will be one and only one
-          class that has an entry point method. The class can be
-          named anything but the \textit{main} method, that also takes
-          an array of strings as command line arguments and returns nothing,
-          must be unique in the program.
+          entry point method. This method cannot be defined in a \textit{class}
+          definition and must reside in the root \textit{namespace}. It will have
+          the following signature. The \textit{args} parameter are the command
+          line arguments.
           \begin{verbatim}
-            class MainClass:
-              func main(args: []string):
-                <expressions>
+            func main(args: []string):
+              <expressions>
           \end{verbatim}
 
     \subcentersec{Primitive Types}
     \subcentersec{Object System}
       \subsubcentersec{Encapsulation}
       \subsubcentersec{Interfaces}
-    \subcentersec{Namespaces and Modules}
+    \subcentersec{Modules and Namespaces}
 
   \centersec{Features Implemented}
 \end{document}
