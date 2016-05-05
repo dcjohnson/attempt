@@ -1,8 +1,5 @@
 \documentclass{article}
 
-% \usepackage{tikz}
-% \usepackage{tikz-qtree}
-
 \newcommand{\centersec}[1]{\section*{\hfil #1 \hfil}}
 \newcommand{\subcentersec}[1]{\subsection*{\hfil #1 \hfil}}
 \newcommand{\subsubcentersec}[1]{\subsubsection*{\hfil #1 \hfil}}
@@ -269,36 +266,17 @@
         In addition to this, functions and variables can be exported with the
         \textit{public} keyword. As in \textit{classes}.
 
-      % \subsubsection*{modules}
-      %   Each \textit{module} is composed of a subdirectiory, and subdirectories of
-      %   the subdirectory, of the root directory. All source files in each
-      %   directory make up the contents of the file and the normal export rules with
-      %   public apply. The tree below is an example of a hypothetical directory
-      %   heirarchy.
-      %
-      %   \Tree [.root [.foomodule [.bin binbuzmodule ] foobarmodule ] [.module submodule ]]
-      %
-      %   To access the exported contents of each module, you must descend into the
-      %   module heirarchy and reference the class, function, interface, or constant
-      %   variable expicitly using the \textit{::} operator. There will be no ``importing.''
-      %   \begin{verbatim}
-      %     # foo is in the root module
-      %     func foo():
-      %       foomodule::bin::<function>
-      %
-      %     # bar is in the bin module
-      %     func bar():
-      %       # must be in the bar module
-      %       <function>
-      %       binbuzmodule::<const variable>
-      %   \end{verbatim}
-      %   A module that is lower in the heirarchy cannot reference a module that is higher
-      %   than it. For example, no function in the \textit{binbuzmodule} cannot reference
-      %   anything in the \textit{bin} module.
-      %
-      %   If you whine and say silly things like ``but how will we import modules that
-      %   are not in the project?'' I say unto you, ``grow a pair and use git submodules.''
-      %   If that answer is not adequate for you then you are not worthy.
+      \subsubsection*{modules}
+        A \textit{module} is essentially a directory that can be compiled independantly
+        and linked against. It is consists of all the source files in a given directory.
+        It cannot have a main method and be used as a \textit{module}. A module is
+        only one directory deep but can have infinite heirarchies of namespaces within it.
+
+        Using the \textit{import} keyword imports the \textit{root namespace} of a module into the
+        \textit{namespace} it was used in.
+
+        You can then descend into the imported module to use \textit{functions},
+        \textit{classes}, and \textit{constants} using the \textit{::} operators.
 
   \centersec{Features Implemented}
 \end{document}
