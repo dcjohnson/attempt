@@ -267,16 +267,38 @@
         \textit{public} keyword. As in \textit{classes}.
 
       \subsubsection*{modules}
-        A \textit{module} is essentially a directory that can be compiled independantly
-        and linked against. It is consists of all the source files in a given directory.
-        It cannot have a main method and be used as a \textit{module}. A module is
-        only one directory deep but can have infinite heirarchies of namespaces within it.
+        A \textit{module} is a group of files that can be compiled independantly
+        and linked against. It is consists of all the source files in a given directory
+        that have the \textit{module} keyword at the top of the file. The \textit{module}
+        keyword is used to define the name of the module. It cannot have a main
+        method and be used as a \textit{module}. A module can have infinite
+        heirarchies of namespaces within it.
 
         Using the \textit{import} keyword imports the \textit{root namespace} of a module into the
         \textit{namespace} it was used in.
 
         You can then descend into the imported module to use \textit{functions},
         \textit{classes}, and \textit{constants} using the \textit{::} operators.
+
+        \begin{verbatim}
+          # a module file
+          module foo
+
+          public func bar(x: i32):
+            <expressions>
+
+
+          # exported namespace
+          public namespace bin:
+            public let: i32 num = 3
+            # a collection of classes, functions, and constants
+
+          # a main file that uses module foo
+          import foo
+
+          func main():
+            foo::bar(foo::bin::num)
+        \end{verbatim}
 
   \centersec{Features Implemented}
 \end{document}
