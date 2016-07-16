@@ -1,6 +1,6 @@
 module Parser.Parser (Parser(Parser)) where
 
--- This is not an origional idea.
+-- This is not an original idea.
 -- The basis of this code is this paper.
 -- http://research.microsoft.com/en-us/um/people/daan/download/papers/parsec-paper.pdf
 
